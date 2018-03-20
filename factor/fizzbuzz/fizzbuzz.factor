@@ -1,14 +1,10 @@
-USING: kernel math ;
+USING: kernel math math.parser sequences ;
 IN: example.fizzbuzz
 
+: fizz ( str number -- str ) 3 mod 0 = [ "Fizz" append ] when ;
+: buzz ( str number -- str ) 5 mod 0 = [ "Buzz" append ] when ;
+: neither ( str number -- str ) swap dup empty? [ drop number>string ] [ nip ] if ;
+
 : fizzbuzz ( number -- result )
-  dup 15 mod 0 =
-  [ drop "FizzBuzz" ]
-  [
-    dup 3 mod 0 =
-    [ drop "Fizz" ]
-    [ dup 5 mod 0 = [ drop "Buzz" ] when ]
-    if
-  ]
-  if
+  "" over fizz over buzz over neither nip
   ;
